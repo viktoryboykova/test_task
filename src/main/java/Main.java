@@ -8,6 +8,11 @@ import sorter.FileSorter;
 import sorter.Sorter;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,7 +26,14 @@ public class Main {
         File unsortedFile = fileGenerator.generateFile(lineNumber, lineLength);
         List<File> dividedFiles;
         if (lineNumber < FileDivider.CHILD_SIZE) {
-            dividedFiles = Collections.singletonList(unsortedFile);
+            Path copied = Paths.get("sorted.txt");
+            Path originalPath = unsortedFile.toPath();
+            try {
+                Files.copy(originalPath, copied, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            dividedFiles = Collections.singletonList(copied.toFile());
         } else {
             Divider fileDivider = new FileDivider();
             dividedFiles = fileDivider.divideFile(unsortedFile);
