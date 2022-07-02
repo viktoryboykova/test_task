@@ -6,9 +6,8 @@ public class Parser {
     private final Map<String, Integer> values = new HashMap<>();
 
     public Parser(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Введите аргументы");
-        }
+        int defaultLinesNumber = 10000;
+        int defaultLineLength = 100;
         for (String arg : args) {
             String[] words = arg.split("=");
             if (words.length != 2) {
@@ -30,16 +29,10 @@ public class Parser {
             values.put(words[0].substring(1), Integer.valueOf(words[1]));
         }
         if (!values.containsKey("l")) {
-            values.put("l", 100);
+            values.put("l", defaultLineLength);
         }
         if (!values.containsKey("n")) {
-            values.put("n", 10000);
-        }
-        if (!values.containsKey("d")) {
-            values.put("d", 1000);
-        }
-        if (values.get("n") < values.get("d")) {
-            throw new IllegalArgumentException("Количество строк в исходном файле дожно быть больше, чем в каждом файле, на который он разбивается");
+            values.put("n", defaultLinesNumber);
         }
     }
 

@@ -15,7 +15,7 @@ public class FileGenerator implements Generator {
 
     @Override
     public File generateFile(int linesNumber, int lineLength) {
-        File file = new File("C:\\Users\\gurov\\Desktop\\task\\unsorted.txt");
+        File file = new File("unsorted.txt");
         String BASE = "abcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder sb;
         try (FileWriter writer = new FileWriter(file)) {
@@ -25,12 +25,14 @@ public class FileGenerator implements Generator {
                     sb.append(BASE.charAt(random.nextInt(BASE.length())));
                 }
                 writer.append(sb.toString());
-                writer.append(System.lineSeparator());
+                if (i < linesNumber - 1) {
+                    writer.append(System.lineSeparator());
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        LOG.info("Сгенерирован файл " + file.getName());
+        LOG.info("File was generated: " + file.getName());
         return file;
     }
 }

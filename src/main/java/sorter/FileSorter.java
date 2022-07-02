@@ -34,7 +34,7 @@ public class FileSorter implements Sorter {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            LOG.info("Отсортирован файл " + unsortedFile.getName());
+            LOG.info("File was sorted: " + unsortedFile.getName());
         }
     }
 }

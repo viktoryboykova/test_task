@@ -14,21 +14,21 @@ public class FileMerger implements Merger {
     @Override
     public File merge(List<File> list) {
         if (list.size() == 1) {
-            LOG.info("Создан итоговый отсортированный файл" + list.get(0).getName());
+            LOG.info("Final sorted file was created: " + list.get(0).getName());
             return list.get(0);
         }
         List<File> mergedFiles = new ArrayList<>();
-        if (list.size() %2 != 0) {
+        if (list.size() % 2 != 0) {
             mergedFiles.add(list.get(list.size() - 1));
         }
         for (int i = 1; i < list.size(); i += 2) {
-            mergedFiles.add(submerge(list.get(i - 1), list.get(i)));
+            mergedFiles.add(submerge(list.get(i - 1), list.get(i), list.size() == 2));
         }
         return merge(mergedFiles);
     }
 
-    private File submerge(File file1, File file2) {
-        File sortedFile = new File("C:\\Users\\gurov\\Desktop\\task\\sorted" + file1.getName().split("\\.")[0] + ".txt");
+    private File submerge(File file1, File file2, boolean isTerminalIteration) {
+        File sortedFile = new File(isTerminalIteration ? "sorted.txt" : "sorted" + file1.getName().split("\\.")[0] + ".txt");
         try (BufferedReader bufferedReader1 = new BufferedReader(new FileReader(file1))) {
             try (BufferedReader bufferedReader2 = new BufferedReader(new FileReader(file2))) {
                 try (FileWriter fileWriter = new FileWriter(sortedFile)) {
@@ -54,11 +54,11 @@ public class FileMerger implements Merger {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        LOG.info("Сгенерирован " + sortedFile.getName() + " из " + file1.getName() + " и " + file2.getName());
+        LOG.info("File " + sortedFile.getName() + " was generated from " + file1.getName() + " and " + file2.getName());
         file1.delete();
-        LOG.info("Удалился файл " + file1.getName());
+        LOG.info("File was deleted: " + file1.getName());
         file2.delete();
-        LOG.info("Удалился файл " + file2.getName());
+        LOG.info("File was deleted: " + file2.getName());
         return sortedFile;
     }
 }

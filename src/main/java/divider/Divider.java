@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface Divider {
 
-    List<File> divideFile(File file, int size);
+    List<File> divideFile(File file);
 
 }
