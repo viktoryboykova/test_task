@@ -16,12 +16,8 @@ public class Parser {
             if (words[0].isEmpty() || words[1].isEmpty()) {
                 throw new IllegalArgumentException("Введен пустой ключ/значение. Образец: -key=value.");
             }
-            try {
-                if (Integer.parseInt(words[1]) < 0) {
-                    throw new IllegalArgumentException("Введено отрицательное значение для ключа " + words[0]);
-                }
-            } catch (NumberFormatException ex) {
-                throw new IllegalArgumentException("Введена строка, а не число");
+            if ((words[0].equals("-l") || words[0].equals("-n")) && Integer.parseInt(words[1]) < 0) {
+                throw new IllegalArgumentException("Введено отрицательное значение для ключа " + words[0]);
             }
             if (!words[0].startsWith("-")) {
                 throw new IllegalArgumentException("Ключ " + words[0] + "должен начинаться с \"-\"");
