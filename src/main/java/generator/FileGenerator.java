@@ -15,6 +15,7 @@ public class FileGenerator implements Generator {
 
     @Override
     public File generateFile(int linesNumber, int lineLength) {
+        LOG.info("Start of generation...");
         File file = new File("unsorted.txt");
         String BASE = "abcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder sb;
