@@ -6,7 +6,7 @@ public class Parser {
     private final Map<String, Integer> values = new HashMap<>();
 
     public Parser(String[] args) {
-        int defaultLinesNumber = 1000;
+        int defaultLinesNumber = 10000;
         int defaultLineLength = 100;
         for (String arg : args) {
             String[] words = arg.split("=");
